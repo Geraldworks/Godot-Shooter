@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfoyvgauopati"]
+
+[ext_resource type="Script" path="res://scripts/guns/shotgun.gd" id="1_rxx2b"]
+[ext_resource type="PackedScene" uid="uid://b75a44xkx5b2m" path="res://scenes/bullet.tscn" id="2_kj7vd"]
+
+[node name="shotgun" type="Node2D"]
+script = ExtResource("1_rxx2b")
+bullet = ExtResource("2_kj7vd")
+ammunition = 75
+ammo_per_shot = 5

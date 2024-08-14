@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cveledb8iowxx"]
+
+[ext_resource type="Script" path="res://scripts/contact_enemy.gd" id="1_pogbx"]
+[ext_resource type="PackedScene" uid="uid://cte3drbym7boe" path="res://scenes/health_component.tscn" id="2_v8qdf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mul2"]
+size = Vector2(40, 40)
+
+[node name="ContactEnemy" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_pogbx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.831373, 0.113725, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_5mul2")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_v8qdf")]

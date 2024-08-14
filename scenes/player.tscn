@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://wis2moucefk7"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_43fnn"]
+[ext_resource type="PackedScene" uid="uid://c8xae65a6wf4s" path="res://scenes/pistol.tscn" id="2_6ntbr"]
+[ext_resource type="PackedScene" uid="uid://cte3drbym7boe" path="res://scenes/health_component.tscn" id="3_n2rb0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2bja"]
+size = Vector2(27, 26)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 12
+script = ExtResource("1_43fnn")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 17.0
+offset_bottom = 16.0
+color = Color(0.352941, 0.341176, 0.898039, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, 3)
+shape = SubResource("RectangleShape2D_i2bja")
+
+[node name="Pistol" parent="." node_paths=PackedStringArray("gun_user") instance=ExtResource("2_6ntbr")]
+gun_user = NodePath("..")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_n2rb0")]
+
+[node name="IFrameTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="IFrameTimer" to="." method="_on_i_frame_timer_timeout"]

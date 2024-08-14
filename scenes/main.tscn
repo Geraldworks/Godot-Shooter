@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh83qrg6bip8w"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_0tlpx"]
+[ext_resource type="PackedScene" uid="uid://wis2moucefk7" path="res://scenes/player.tscn" id="2_bkns5"]
+[ext_resource type="PackedScene" uid="uid://cveledb8iowxx" path="res://scenes/contact_enemy.tscn" id="2_o6o62"]
+[ext_resource type="PackedScene" uid="uid://24ty8panroi4" path="res://scenes/weapon_pickup_area.tscn" id="3_l8ph4"]
+[ext_resource type="PackedScene" uid="uid://bfoyvgauopati" path="res://scenes/shotgun.tscn" id="4_pmrec"]
+
+[sub_resource type="Curve2D" id="Curve2D_66e1h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1504, 0, 0, 0, 0, 0, 1504, 800, 0, 0, 0, 0, 0, 800, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0tlpx")
+enemy = ExtResource("2_o6o62")
+gun_pickup_area = ExtResource("3_l8ph4")
+guns_list = Array[PackedScene]([ExtResource("4_pmrec")])
+
+[node name="Player" parent="." instance=ExtResource("2_bkns5")]
+
+[node name="StartingPosition" type="Marker2D" parent="."]
+position = Vector2(750, 400)
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_66e1h")
+
+[node name="EnemySpawnPath" type="PathFollow2D" parent="EnemyPath"]
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="WeaponSpawnPosition" type="Marker2D" parent="."]
+position = Vector2(750, 200)
+
+[node name="WeaponSpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="tree_exited" from="Player" to="." method="_on_player_tree_exited"]
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="WeaponSpawnTimer" to="." method="_on_weapon_spawn_timer_timeout"]
